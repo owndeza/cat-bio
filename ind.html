@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>biography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: linear-gradient(-45deg, #1f0029, #2b0033, #33001a, #1a0029);
+      background-size: 400% 400%;
+      animation: bgGradient 20s ease infinite;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    @keyframes bgGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid #ffffff22;
+      border-radius: 20px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 700px;
+      margin: 5% auto;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    h1, .info-line, a, .footer {
+      background: linear-gradient(to right, #c084fc, #ec4899);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientText 6s ease-in-out infinite;
+    }
+
+    @keyframes gradientText {
+      0% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+      100% { background-position: 0% center; }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+    }
+
+    .info-line {
+      margin: 10px 0;
+      font-size: 1.1rem;
+      opacity: 0;
+      animation: typeIn 0.5s ease forwards, gradientText 6s ease-in-out infinite;
+    }
+
+    .info-line:nth-child(n+2) {
+      animation-delay: calc(0.3s * var(--i));
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .scanlines::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.03),
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 1;
+      animation: flicker 3s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes typeIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .cursor::after {
+      content: '_';
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="scanlines">
+  <div class="glass">
+    <h1 class="cursor">кот #крах#антлантия</h1>
+    <div class="info-line" style="--i:1">📞 Телефон: <a href="tel:959672385580">959672385580</a></div>
+    <div class="info-line" style="--i:2">🌐 IP-адрес: 103.150.192.84</div>
+    <div class="info-line" style="--i:4">📍 Адрес: House #12, Road #3, Dhanmondi R/A,Dhaka 1205, Bangladesh</div>
+    <div class="info-line" style="--i:5">💬 Связь: <a href="https://t.me/keeler_of_your_heart"target="_blank">@keeler_of_your_heart</a></div>
+    <div class="info-line" style="--i:7">🛠 Касты: Тролль, Провокатор</div>
+    <div class="footer">Last update: 2025</div>
+  </div>
+</body>
+</html>

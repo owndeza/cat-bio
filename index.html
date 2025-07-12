@@ -128,6 +128,12 @@
     @keyframes blink {
       50% { opacity: 0; }
     }
+    .dimmed-text {
+  color: rgba(255, 255, 255, 0.4); /* светло-серый, прозрачный */
+  user-select: none;               /* чтобы текст не выделялся */
+  font-weight: 600;
+  font-size: 0.9em;
+}
   </style>
 </head>
 <body class="scanlines">
@@ -138,7 +144,7 @@
     <div class="info-line" style="--i:4">📍 Адрес: House #12, Road #3, Dhanmondi R/A,Dhaka 1205, Bangladesh</div>
     <div class="info-line" style="--i:5">💬 Связь: <a href="https://t.me/keeler_of_your_heart"target="_blank">@keeler_of_your_heart</a></div>
     <div class="info-line" style="--i:7">🛠 Касты: Тролль, Провокатор</div>
-    <div class="footer">Last update: 2025</div>
+    <div class="footer">Last update: 2025 <p class="dimmed-text">#2</p></div>
   </div>
 </body>
 </html>

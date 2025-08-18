@@ -1,1 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DFHUB — Документация</title>
+  <style>
+    /* === Base / Theme === */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1e1f22;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    :root {
+      --jb-primary: #1e1f22;
+      --jb-secondary: #2b2d30;
+      --jb-accent: #3574f0;
+      --jb-accent-hover: #4a7aff;
+      --jb-text-primary: #ffffff;
+      --jb-text-secondary: #b8bdc6;
+      --jb-border: #393b40;
+      --jb-purple: #9873ff;
+      --jb-orange: #ff6b35;
+      --jb-green: #07c160;
+      --jb-yellow: #f4af3d;
+      --jb-red: #ff6b6b;
+    }
 
+    a { color: inherit; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    /* === Top Nav === */
+    nav {
+      position: sticky; top: 0; z-index: 1000;
+      height: 64px;
+      background: var(--jb-primary);
+      border-bottom: 1px solid var(--jb-border);
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; height: 100%;
+      display: flex; align-items: center; gap: 24px; padding: 0 24px;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; }
+    .logo-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      display: grid; place-items: center; font-weight: 800; color: white;
+      background: linear-gradient(135deg, var(--jb-accent), var(--jb-purple));
+    }
+    .top-links { margin-left: auto; display: flex; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; border: 1px solid transparent; transition: .18s ease; }
+    .btn-primary { background: var(--jb-accent); color: #fff; }
+    .btn-primary:hover { background: var(--jb-accent-hover); }
+    .btn-secondary { background: transparent; color: var(--jb-text-secondary); border-color: var(--jb-border); }
+    .btn-secondary:hover { background: var(--jb-secondary); color: #fff; }
+
+    /* === Layout === */
+    .layout {
+      max-width: 1280px; margin: 0 auto; display: grid; gap: 0;
+      grid-template-columns: 290px 1fr; min-height: calc(100vh - 64px);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky; top: 64px; align-self: start;
+      height: calc(100vh - 64px); overflow: auto; padding: 24px; border-right: 1px solid var(--jb-border);
+      background: linear-gradient(180deg, var(--jb-primary), rgba(30,31,34,0.6));
+    }
+    .sidebar .search {
+      position: sticky; top: 0; background: var(--jb-primary); padding-bottom: 12px; margin-bottom: 8px;
+    }
+    .search-input {
+      width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--jb-border);
+      background: var(--jb-secondary); color: #fff; outline: none;
+    }
+    .sidebar-group { margin-top: 16px; }
+    .sidebar-title { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--jb-text-secondary); margin: 14px 0 8px; }
+    .nav-item { list-style: none; }
+    .nav-item a {
+      display: block; padding: 8px 10px; border-radius: 8px; text-decoration: none; color: var(--jb-text-secondary);
+      border: 1px solid transparent;
+    }
+    .nav-item a:hover { background: var(--jb-secondary); color: #fff; }
+    .nav-item a.active { background: rgba(53,116,240,.12); color: #fff; border-color: rgba(53,116,240,.35); }
+
+    /* Content */
+    .content { padding: 32px 32px 80px; }
+    .doc-header { margin-bottom: 28px; }
+    .doc-badge { display: inline-flex; gap: 8px; align-items: center; background: var(--jb-secondary); color: var(--jb-text-secondary); border: 1px solid var(--jb-border); border-radius: 999px; padding: 6px 12px; font-size: 12px; }
+    .doc-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--jb-green); }
+    h1 { font-size: 40px; line-height: 1.2; margin: 12px 0 8px; background: linear-gradient(135deg, #fff, var(--jb-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .lead { color: var(--jb-text-secondary); max-width: 70ch; }
+
+    .card {
+      background: var(--jb-secondary); border: 1px solid var(--jb-border); border-radius: 12px; padding: 18px 20px; margin: 16px 0;
+    }
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .muted { color: var(--jb-text-secondary); }
+
+    h2 { font-size: 28px; margin: 32px 0 12px; }
+    h3 { font-size: 20px; margin: 24px 0 8px; }
+    p { margin: 8px 0; }
+    ul { padding-left: 18px; margin: 10px 0; }
+    li { margin: 6px 0; }
+
+    pre { background: #16171a; border: 1px solid var(--jb-border); padding: 14px; border-radius: 10px; overflow: auto; }
+    code { color: #e3e7ee; }
+
+    .table {
+      width: 100%; border-collapse: collapse; border: 1px solid var(--jb-border); border-radius: 10px; overflow: hidden; margin: 14px 0;
+    }
+    .table th, .table td { border-bottom: 1px solid var(--jb-border); padding: 10px 12px; text-align: left; }
+    .table th { background: #232427; color: #cfd5df; font-weight: 600; }
+    .table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .callout {
+      display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--jb-border);
+      background: linear-gradient(180deg, rgba(53,116,240,0.12), rgba(53,116,240,0.05));
+    }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--jb-border); padding: 40px 24px; color: var(--jb-text-secondary); text-align: center; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--jb-border); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Nav -->
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="./index.html">
+        <span class="logo-icon">DF</span>
+        <span>DFHUB</span>
+      </a>
+      <div class="top-links">
+        <a class="btn btn-secondary" href="#" id="expandAll">Развернуть всё</a>
+        <a class="btn btn-primary" href="#contact-support">Поддержка 24/7</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="search">
+        <input id="search" class="search-input" placeholder="Поиск по документации…" />
+      </div>
+
+      <div class="sidebar-group" data-group>
+        <div class="sidebar-title">Введение</div>
+        <ul>
+          <li class="nav-item"><a href="#intro" class="active">Обзор</a></li>
+          <li class="nav-item"><a href="#getting-started">Быстрый старт</a></li>
+          <li class="nav-item"><a href="#terminology">Термины</a></li>
+          <li class="nav-item"><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-group" data-group>
+        <div class="sidebar-title">Продукты</div>
+        <ul>
+          <li class="nav-item"><a href="#pack">Pack‑for‑all</a></li>
+          <li class="nav-item"><a href="#audit">Audit</a></li>
+          <li class="nav-item"><a href="#person">Person</a></li>
+          <li class="nav-item"><a href="#academy">Academy</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-group" data-group>
+        <div class="sidebar-title">Архитектура и безопасность</div>
+        <ul>
+          <li class="nav-item"><a href="#architecture">Архитектура</a></li>
+          <li class="nav-item"><a href="#crypto">Криптография</a></li>
+          <li class="nav-item"><a href="#siem">Интеграции (SIEM/EDR)</a></li>
+          <li class="nav-item"><a href="#threat-model">Модель угроз</a></li>
+          <li class="nav-item"><a href="#compliance">Соответствие</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-group" data-group>
+        <div class="sidebar-title">Развёртывание</div>
+        <ul>
+          <li class="nav-item"><a href="#requirements">Требования</a></li>
+          <li class="nav-item"><a href="#install">Установка</a></li>
+          <li class="nav-item"><a href="#configure">Конфигурация</a></li>
+          <li class="nav-item"><a href="#upgrade">Обновления</a></li>
+          <li class="nav-item"><a href="#scaling">Масштабирование</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-group" data-group>
+        <div class="sidebar-title">API и автоматизация</div>
+        <ul>
+          <li class="nav-item"><a href="#api-overview">Обзор API</a></li>
+          <li class="nav-item"><a href="#api-examples">Примеры</a></li>
+          <li class="nav-item"><a href="#webhooks">Вебхуки</a></li>
+          <li class="nav-item"><a href="#cli">CLI</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-group" data-group>
+        <div class="sidebar-title">Поддержка</div>
+        <ul>
+          <li class="nav-item"><a href="#troubleshooting">Устранение неполадок</a></li>
+          <li class="nav-item"><a href="#contact-support">Связаться с поддержкой</a></li>
+          <li class="nav-item"><a href="#sla">SLA</a></li>
+          <li class="nav-item"><a href="#changelog">Changelog</a></li>
+          <li class="nav-item"><a href="#license">Лицензирование</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <header class="doc-header">
+        <span class="doc-badge"><span class="dot"></span> Документация DFHUB</span>
+        <h1>Полное руководство по продуктам и решениям DFHUB</h1>
+        <p class="lead">Здесь собрано всё о наших продуктах: Pack‑for‑all, Audit, Person и Academy. Узнайте архитектуру, модель угроз, развертывание, интеграции, API, SLA и процедуры поддержки.</p>
+      </header>
+
+      <!-- Intro -->
+      <section id="intro">
+        <h2>Обзор</h2>
+        <p>DFHUB — технологическая организация, создающая инструменты кибербезопасности корпоративного уровня. Наши решения сочетают машинное обучение, современные подходы к шифрованию и продвинутую сетевую аналитику.</p>
+        <div class="card">
+          <h3>Ключевые преимущества</h3>
+          <ul>
+            <li>Единая экосистема защиты: сетевой периметр, конечные точки, аналитика SIEM.</li>
+            <li>Масштабируемая архитектура и автоматизация развертывания.</li>
+            <li>Поддержка 24/7 и строгие SLA.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="getting-started">
+        <h2>Быстрый старт</h2>
+        <ol>
+          <li>Определите профиль угроз и цели (комплаенс/отчёты/защита периметра).</li>
+          <li>Выберите продукт(ы): Pack‑for‑all, Audit, Person, Academy.</li>
+          <li>Подготовьте инфраструктуру и права доступа.</li>
+          <li>Следуйте разделам <a href="#install">Установка</a> и <a href="#configure">Конфигурация</a>.</li>
+        </ol>
+        <pre><code># Пример базовой конфигурации YAML
+telemetry:
+  enabled: true
+  retention_days: 30
+  export:
+    siem: true
+    syslog: udp://siem.local:514
+pack_for_all:
+  ddos_protection: strict
+  endpoint_protection:
+    mode: enforce
+    ml_model: v3.2
+        </code></pre>
+      </section>
+
+      <section id="terminology">
+        <h2>Термины</h2>
+        <table class="table">
+          <thead><tr><th>Термин</th><th>Определение</th></tr></thead>
+          <tbody>
+            <tr><td>SIEM</td><td>Система управления событиями и информацией безопасности.</td></tr>
+            <tr><td>EDR</td><td>Средство обнаружения и реагирования на конечных точках.</td></tr>
+            <tr><td>IOC</td><td>Индикаторы компрометации (сигнатуры атак, домены, хэши).</td></tr>
+            <tr><td>Playbook</td><td>Регламент реагирования на инциденты (SOAR/IR).</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Products -->
+      <section id="pack">
+        <h2>DFHUB Pack‑for‑all</h2>
+        <p>Комплексная система, включающая DDoS‑защиту, ML‑аналитику угроз, защиту конечных точек и SIEM‑интеграцию.</p>
+        <div class="card">
+          <h3>Компоненты</h3>
+          <ul>
+            <li>Сетевой модуль (L3–L7 фильтрация, rate limiting, поведенческий анализ).</li>
+            <li>ML‑ядро (онлайн/офлайн обучение, скользящее окно, объяснимость).</li>
+            <li>Endpoint agent (политики, контроль приложений, изоляция).</li>
+            <li>Интеграционный слой (SIEM, Syslog, REST, webhooks).</li>
+          </ul>
+        </div>
+        <h3>Политики защиты</h3>
+        <pre><code>ddos:
+  modes: ["baseline", "strict", "maintenance"]
+  anomaly_threshold: 3.0    # σ
+endpoint:
+  isolation_on_ransomware: true
+  usb_control: block_unknown
+        </code></pre>
+      </section>
+
+      <section id="audit">
+        <h2>DFHUB Audit</h2>
+        <p>Пентест и аудит безопасности: от сканирования до ручного тестирования и планов устранения.</p>
+        <div class="card">
+          <h3>Методология</h3>
+          <ul>
+            <li>Recon → Threat Modeling → Exploitation → PrivEsc → Reporting → Retest.</li>
+            <li>OWASP Top 10 / ASVS / CIS Benchmarks.</li>
+            <li>Отдельный поток для облаков (IAM, сетевые ACL, логи).</li>
+          </ul>
+        </div>
+        <h3>Структура отчёта</h3>
+        <pre><code>report:
+  executive_summary: true
+  risk_matrix: CVSSv3.1
+  findings:
+    - id: WEB-001
+      title: SQL Injection
+      risk: Critical
+      remediation: "Use parametrized queries"
+        </code></pre>
+      </section>
+
+      <section id="person">
+        <h2>DFHUB Person</h2>
+        <p>Личная защита от кибератак и доксинга. Включает мониторинг следов, hardening аккаунтов, реагирование.</p>
+        <ul>
+          <li>Непрерывный мониторинг утечек и упоминаний.</li>
+          <li>Оценка OPSEC, гайд по приватности, настройка 2FA, менеджеры паролей.</li>
+          <li>План реагирования на dox/harassment, взаимодействие с платформами.</li>
+        </ul>
+      </section>
+
+      <section id="academy">
+        <h2>DFHUB Academy</h2>
+        <p class="muted">Набор временно закрыт. Учебная программа и требования представлены ниже.</p>
+        <div class="card">
+          <h3>Учебные треки</h3>
+          <ul>
+            <li>Blue Team: SIEM, EDR, Threat Hunting.</li>
+            <li>Red Team: Веб/AD эксплуатация, эмуляция противника.</li>
+            <li>GRC/Privacy: Политики, риск‑менеджмент, комплаенс.</li>
+          </ul>
+        </div>
+        <h3>Формат сертификации</h3>
+        <pre><code>exam:
+  type: practical
+  duration: 24h
+  passing_score: 80
+        </code></pre>
+      </section>
+
+      <!-- Architecture & Security -->
+      <section id="architecture">
+        <h2>Архитектура</h2>
+        <p>Микросервисная архитектура с брокером событий и хранилищем телеметрии. Изоляция чувствительных сервисов через network policies.</p>
+        <pre><code># Схема (текстовая)
+[Agents] → [Ingest] → [Stream Bus] → [Analytics/ML] → [SIEM Export]
+                           │
+                       [Storage]
+        </code></pre>
+        <div class="callout">
+          <div>ℹ️</div>
+          <p class="muted">Все внешние интеграции проходят через шлюз с валидацией схемы и rate limiting.</p>
+        </div>
+      </section>
+
+      <section id="crypto">
+        <h2>Криптография</h2>
+        <ul>
+          <li>AES‑256‑GCM для данных «на диске» и «в полёте» (TLS 1.3).</li>
+          <li>Поддержка ротации ключей (KMS/локальные HSM), аудит доступа.</li>
+          <li>Подпись артефактов обновлений (Ed25519), верификация перед установкой.</li>
+        </ul>
+        <pre><code>crypto:
+  tls:
+    min_version: 1.3
+    ciphers: modern
+  kms:
+    rotation_days: 90
+        </code></pre>
+      </section>
+
+      <section id="siem">
+        <h2>Интеграции (SIEM/EDR)</h2>
+        <p>Доступны готовые коннекторы для Splunk/Elastic/Syslog, а также REST и webhooks.</p>
+        <pre><code># Пример экспорта в Syslog
+siem_export:
+  type: syslog
+  target: udp://siem.local:514
+  format: CEF
+        </code></pre>
+      </section>
+
+      <section id="threat-model">
+        <h2>Модель угроз</h2>
+        <ul>
+          <li>Защита от L3–L7 DDoS, брутфорса, эксплойтов уязвимостей приложений.</li>
+          <li>Внутренние инсайдеры: контроль прав, аудит действий.</li>
+          <li>Цепочки поставок: подпись и проверка артефактов, SBOM.</li>
+        </ul>
+        <div class="card">
+          <h3>Матрица рисков (пример)</h3>
+          <table class="table">
+            <thead><tr><th>Атака</th><th>Вероятность</th><th>Влияние</th><th>Контроль</th></tr></thead>
+            <tbody>
+              <tr><td>L7 DDoS</td><td>Высокая</td><td>Высокое</td><td>ML + rate limit</td></tr>
+              <tr><td>Ransomware</td><td>Средняя</td><td>Критичное</td><td>EDR isolation</td></tr>
+              <tr><td>Insider</td><td>Низкая</td><td>Высокое</td><td>RBAC + аудит</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="compliance">
+        <h2>Соответствие и приватность</h2>
+        <ul>
+          <li>Поддержка регуляторных рамок: ISO 27001, GDPR (минимизация данных, права субъекта).</li>
+          <li>Политики хранения телеметрии и удаления по запросу.</li>
+          <li>Логи доступа к данным и регулярные отчёты.</li>
+        </ul>
+      </section>
+
+      <!-- Deployment -->
+      <section id="requirements">
+        <h2>Системные требования</h2>
+        <table class="table">
+          <thead><tr><th>Компонент</th><th>Мин. ресурсы</th><th>Примечания</th></tr></thead>
+          <tbody>
+            <tr><td>Ingest</td><td>2 CPU / 4GB RAM</td><td>Сетевой фильтр</td></tr>
+            <tr><td>Analytics</td><td>4 CPU / 8GB RAM</td><td>ML‑модуль</td></tr>
+            <tr><td>Storage</td><td>100GB SSD</td><td>Ротация 30 дней</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="install">
+        <h2>Установка</h2>
+        <pre><code># Пример контейнерного запуска (docker-compose)
+version: "3.8"
+services:
+  ingest:
+    image: dfhub/ingest:latest
+    ports: ["443:443"]
+    environment:
+      - LOG_LEVEL=info
+  analytics:
+    image: dfhub/analytics:latest
+    depends_on: [ingest]
+  storage:
+    image: dfhub/storage:latest
+    volumes:
+      - data:/data
+volumes:
+  data: {}
+        </code></pre>
+      </section>
+
+      <section id="configure">
+        <h2>Конфигурация</h2>
+        <p>Все сервисы поддерживают конфигурацию через файлы YAML/ENV. Ниже пример минимального профиля «Строгая защита».</p>
+        <pre><code>profile: strict
+network:
+  rate_limit:
+    per_ip_rps: 50
+telemetry:
+  redact_pii: true
+export:
+  siem: true
+        </code></pre>
+      </section>
+
+      <section id="upgrade">
+        <h2>Обновления</h2>
+        <ul>
+          <li>Все образы подписаны (Ed25519). Обновления атомарные с откатом.</li>
+          <li>Планируйте окно обслуживания и выполняйте health‑check после деплоя.</li>
+        </ul>
+        <pre><code># Псевдокод обновления
+cli upgrade --component analytics --to 3.2.1 --verify-signature --rollout 20%
+        </code></pre>
+      </section>
+
+      <section id="scaling">
+        <h2>Масштабирование</h2>
+        <p>Горизонтально масштабируйте ingest и analytics. Используйте шардирование для storage.</p>
+        <div class="card">
+          <h3>Рекомендации</h3>
+          <ul>
+            <li>HPA по CPU/RPS, отдельные очереди для «тяжёлых» событий.</li>
+            <li>Кэширование моделей ML и прогрев при старте.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- API & Automation -->
+      <section id="api-overview">
+        <h2>Обзор API</h2>
+        <p>REST API предназначен для интеграции с внешними системами. Все запросы подписываются токеном и ограничиваются по rate‑limit.</p>
+        <table class="table">
+          <thead><tr><th>Метод</th><th>Путь</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td>GET</td><td>/v1/health</td><td>Проверка состояния</td></tr>
+            <tr><td>POST</td><td>/v1/policies</td><td>Создание/обновление политики</td></tr>
+            <tr><td>GET</td><td>/v1/events</td><td>Получение телеметрии</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="api-examples">
+        <h2>Примеры использования API</h2>
+        <pre><code>curl -H "Authorization: Bearer &lt;TOKEN&gt;" https://dfhub.example/api/v1/health
+
+# Обновление политики
+curl -X POST \
+  -H "Authorization: Bearer &lt;TOKEN&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{"ddos":{"mode":"strict"}}' \
+  https://dfhub.example/api/v1/policies
+        </code></pre>
+      </section>
+
+      <section id="webhooks">
+        <h2>Вебхуки</h2>
+        <p>События инцидентов, изменения состояния и алерты могут отправляться на ваш приёмник.</p>
+        <pre><code>// Пример JSON события
+{
+  "type": "incident.created",
+  "id": "inc_01H...","+
+"  "severity": "high",
+  "summary": "L7 anomaly detected",
+  "link": "https://console.dfhub.example/incidents/inc_01H..."
+}
+        </code></pre>
+      </section>
+
+      <section id="cli">
+        <h2>CLI</h2>
+        <pre><code># Справка
+cli --help
+
+# Просмотр состояния
+cli status --verbose
+
+# Экспорт в SIEM
+cli export --since 24h --to siem
+        </code></pre>
+      </section>
+
+      <!-- Support -->
+      <section id="troubleshooting">
+        <h2>Устранение неполадок</h2>
+        <div class="card">
+          <h3>Типовые проблемы</h3>
+          <ul>
+            <li>Нет телеметрии: проверьте сеть, токены и время на узлах.</li>
+            <li>Ложные срабатывания: смягчите пороги ML, проверьте базовые линии.</li>
+            <li>Нагрузка: включите кэш моделей и HPA.</li>
+          </ul>
+        </div>
+        <pre><code># Диагностика
+cli diag --collect --since 1h --bundle diag_$(date +%s).zip
+        </code></pre>
+      </section>
+
+      <section id="contact-support">
+        <h2>Связаться с поддержкой</h2>
+        <p>Email: <code>developerdeza@gmail.com</code></p>
+        <p>Secure Channel: PGP 4096‑bit (по запросу)</p>
+        <p>Круглосуточная поддержка с целевым временем реакции согласно SLA.</p>
+      </section>
+
+      <section id="sla">
+        <h2>SLA</h2>
+        <table class="table">
+          <thead><tr><th>Приоритет</th><th>Описание</th><th>Время реакции</th><th>Время решения</th></tr></thead>
+          <tbody>
+            <tr><td>P1</td><td>Простой сервиса, критичная уязвимость</td><td>15 минут</td><td>4 часа</td></tr>
+            <tr><td>P2</td><td>Функциональные сбои</td><td>1 час</td><td>1 рабочий день</td></tr>
+            <tr><td>P3</td><td>Низкий приоритет, запросы</td><td>1 рабочий день</td><td>3 рабочих дня</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="changelog">
+        <h2>Changelog</h2>
+        <ul>
+          <li><strong>2025‑08‑19</strong> — Первичная публикация документации, добавлены разделы API/Архитектура.</li>
+          <li><strong>2025‑08‑12</strong> — Улучшения в ML‑ядре и экспорте SIEM.</li>
+        </ul>
+      </section>
+
+      <section id="license">
+        <h2>Лицензирование</h2>
+        <p>Коммерческая лицензия. Использование, копирование и распространение регулируется условиями соглашения DFHUB. Для расчёта стоимости и тестового периода обратитесь в отдел продаж.</p>
+      </section>
+
+      <section id="faq">
+        <h2>FAQ</h2>
+        <details class="card"><summary><strong>Чем Pack‑for‑all отличается от отдельных решений?</strong></summary><p>Это единый пакет со сквозной интеграцией, общей телеметрией и централизованной политикой.</p></details>
+        <details class="card"><summary><strong>Нужен ли интернет‑доступ?</strong></summary><p>Поддерживается офлайн‑режим с локальными обновлениями и зеркалами.</p></details>
+        <details class="card"><summary><strong>Можно ли интегрировать с существующим SIEM?</strong></summary><p>Да, доступны коннекторы и гибкая схема полей.</p></details>
+      </section>
+
+      <footer>
+        <p>© 2025 DFHUB. Все права защищены.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        const el = document.querySelector(href);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // Scroll spy / active link
+    const links = Array.from(document.querySelectorAll('.nav-item a'));
+    const sections = links
+      .map(l => document.querySelector(l.getAttribute('href')))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = links.find(l => l.getAttribute('href') === id);
+        if (entry.isIntersecting && link) {
+          links.forEach(x => x.classList.remove('active'));
+          link.classList.add('active');
+          history.replaceState(null, '', id);
+        }
+      });
+    }, { rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Sidebar search (client-side filter)
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      document.querySelectorAll('.sidebar [data-group]').forEach(group => {
+        let anyVisible = false;
+        group.querySelectorAll('.nav-item').forEach(item => {
+          const a = item.querySelector('a');
+          const text = a.textContent.toLowerCase();
+          const show = text.includes(q);
+          item.style.display = show ? '' : 'none';
+          if (show) anyVisible = true;
+        });
+        group.style.display = anyVisible || !q ? '' : 'none';
+      });
+    });
+
+    // Expand all code/sections by focusing details
+    document.getElementById('expandAll').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('details').forEach(d => d.open = true);
+    });
+  </script>
+</body>
+</html>

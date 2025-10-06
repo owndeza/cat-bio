@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "username": "@onedeza",
+      "caste": "Coding",
+      "licensed": true,
+      "licenseId": "001-CODING",
+      "licenseDate": "06.10.2025",
+      "issuedBy": "ООО «ОПВЛК»",
+      "activity": "разработке и аудиту программных продуктов",
+      "expiryDate": "06.10.2026",
+      "block": false,
+      "warn": false,
+      "certificate": true,
+      "certificates": [
+        "onedeza/cert1.txt"
+      ]
+    },
+    {
+      "username": "@pinexlol",
+      "caste": "Osint",
+      "licensed": true,
+      "licenseId": "001-OSINT",
+      "licenseDate": "06.10.2025",
+      "issuedBy": "ООО «ОПВЛК»",
+      "activity": "сбору и анализу информации из открытых источников в целях аналитики и мониторинга",
+      "expiryDate": "06.10.2026",
+      "block": false,
+      "warn": true,
+      "certificate": false
+    },
+	{
+      "username": "@fameTP",
+      "caste": "Osint",
+      "licensed": false,
+      "licenseId": "001-OSINT",
+      "licenseDate": "06.10.2025",
+      "issuedBy": "ООО «ОПВЛК»",
+      "activity": "сбору и анализу информации из открытых источников в целях аналитики и мониторинга",
+      "expiryDate": "06.10.2026",
+      "block": false,
+      "warn": false,
+      "certificate": false
+    }
+  ]
+}

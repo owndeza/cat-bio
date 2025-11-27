@@ -1,14 +1,14 @@
 {
   "users": [
     {
-      "username": "@onedeza",
-      "caste": "Coding",
+      "username": "@dessiant",
+      "caste": "Developer",
       "licensed": true,
-      "licenseId": "001-CODING",
+      "licenseId": "DEVELOPER",
       "licenseDate": "06.10.2025",
-      "issuedBy": "ООО «ОПВЛК»",
+      "issuedBy": "ООО «DEVGIRLS»",
       "activity": "разработке и аудиту программных продуктов",
-      "expiryDate": "06.10.2026",
+      "expiryDate": "06.11.2030",
       "block": false,
       "warn": false,
       "certificate": true,
@@ -17,16 +17,16 @@
       ]
     },
     {
-      "username": "@pinexlol",
-      "caste": "Osint",
+      "username": "@faivoru",
+      "caste": "Developer",
       "licensed": true,
-      "licenseId": "001-OSINT",
-      "licenseDate": "06.10.2025",
-      "issuedBy": "ООО «ОПВЛК»",
-      "activity": "сбору и анализу информации из открытых источников в целях аналитики и мониторинга",
+      "licenseId": "DEVELOPER",
+      "licenseDate": "06.11.2030",
+      "issuedBy": "ООО «DEVGIRLS»",
+      "activity": "DEVELOPER",
       "expiryDate": "06.10.2026",
       "block": false,
-      "warn": true,
+      "warn": false,
       "certificate": false
     },
 	{
@@ -43,4 +43,5 @@
       "certificate": false
     }
   ]
+
 }
